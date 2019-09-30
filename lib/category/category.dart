@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:flutter_custom_widget/category/unit.dart';
+import 'package:flutter_custom_widget/category/converter_route.dart';
 
 final _rowHeight = 100.0;
 final _borderRadius = BorderRadius.circular(_rowHeight / 2);
@@ -8,6 +10,7 @@ class Category extends StatelessWidget {
   final String name;
   final ColorSwatch color;
   final IconData iconLocation;
+  final List<Unit> units;
 
   //@required decorator checks for whether a name parameter is passed while the assert statement/function checks whether the object is null or not.
   const Category({
@@ -15,10 +18,36 @@ class Category extends StatelessWidget {
     @required this.name,
     @required this.color,
     @required this.iconLocation,
+    @required this.units,
+
   }) : assert(name != null),
        assert(color != null),
        assert(iconLocation != null),
+       assert(units != null),
        super(key: key);
+
+  //Naviagaes to the [converterRoute]
+  void _navigateToConverter(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute<Null>(
+      builder: (BuildContext context) {
+        return Scaffold(
+          appBar: AppBar(
+            elevation: 1.0,
+            title: Text(
+              name,
+              style: Theme.of(context).textTheme.display1,
+            ),
+            centerTitle: true,
+            backgroundColor: color,
+          ),
+          body: ConverterRoute(
+            color: color,
+            units: units,
+          ),
+        );
+      },
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +57,9 @@ class Category extends StatelessWidget {
         height: _rowHeight,
         child: InkWell(
           borderRadius: _borderRadius,
-          highlightColor: color,
-          splashColor: color,
-          onTap: () {
-            print('I was tapped!');
-          },
+          highlightColor: color['highlight'],
+          splashColor: color['splash'],
+          onTap: () => _navigateToConverter(context),
           child: Padding(
             padding: EdgeInsets.all(8.0),
             child: Row(
