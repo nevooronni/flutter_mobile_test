@@ -26,7 +26,7 @@ class Category extends StatelessWidget {
        assert(units != null),
        super(key: key);
 
-  //Naviagaes to the [converterRoute]
+  //Navigates to the [converterRoute]
   void _navigateToConverter(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute<Null>(
       builder: (BuildContext context) {
