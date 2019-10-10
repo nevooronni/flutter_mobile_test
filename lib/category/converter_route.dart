@@ -58,7 +58,7 @@ class _ConverterRouteState extends State<ConverterRoute> {
     });
   }
 
-  //clean up conversion; trin trailing zeros e.g 5.5000 -> 5.5, 10.0 -> 10
+  //clean up conversion; string trailing zeros e.g 5.5000 -> 5.5, 10.0 -> 10
   String _format(double conversion) {
     var outputNum = conversion.toStringAsPrecision(7);
     if (outputNum.contains('.') && outputNum.endsWith('0')) {
